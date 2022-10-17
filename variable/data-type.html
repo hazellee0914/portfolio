@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Attributes</title>
+  <style>
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: tomato;
+      margin-bottom: 50px;
+    }
+
+    /* data 속성 선택자를 꾸밀 수 있다 
+     근데 div에만 적용하고 싶을 경우 앞에 div 적용 할 것!*/
+    div[data-display-name='dream'] {
+      background-color: beige;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div data-index="1" data-display-name="dream"></div>
+  <div data-index="2" data-display-name="coding"></div>
+  <span data-index="1" data-display-name="dream">dfsfds</span>
+  <script>
+    //  자바스크립트에서 원하는 것을 쓸 수 있다
+    //  dream 이라는 변수를 만들어서 document에 있는 querySelector 를 이용해서 
+    // querySelector 는 css 에서 우리가 선택자로 쓰는 애들을 그대로 쓸 수 있다.
+    // div 태그를 가지고 있는 돔 요소 중에 제일 첫번째 나오는 하나만 dream 이라는 변수에 할당!
+    const dream = document.querySelector('div')
+    // 위에꺼 써도 되고 아래 선택자를 이용해도 상관 없다.
+    const dream2 = document.querySelector('div[data-display-name="dream"] ')
+    // dream에 받아와진 변수에 할당되어진 요소에 dataset 을 출력하면
+    // domstringmap 에 안에 우리가 정의한게 있다.
+    console.log(dream.dataset);
+    // 우리가 원하는 정확한 값을 원하고 출력 하고 싶다면
+    // 우리가 원하는 데이터 접근 해서 값을 자바스크립트에서 받아올수 있다
+    console.log(dream.dataset.displayName);
+    console.log(dream.dataset.index);
+
+  </script>
+
+</body>
+</html>
