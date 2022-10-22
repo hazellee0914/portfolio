@@ -129,6 +129,15 @@ p {
   border-radius: 4px;
 }
 
+.navbar__toggle-btn  {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  font-size: 24px;
+  color: var(--color-white);
+  display: none;
+}
+
 
 /* Home */
 #home {
@@ -468,4 +477,49 @@ p {
   transform: scale(1.1);
   color: var(--color-yellow);
   transition: all var(--animation-duration)ease-in;
+}
+
+
+/*  반응형 
+For below 768 screen*/
+@media screen and (max-width: 768px) {
+  .navbar__toggle-btn {
+    display: block;
+  }
+  #navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar__menu {
+    flex-direction: column;
+    text-align: center;
+    /* 메뉴 자체가 넓이가 작아서 가운데로 안오고 있는 상황 */
+    width: 100%;
+    display: none;
+  }
+  .about__majors {
+    flex-direction: column;
+  }
+  
+  .major {
+    margin-bottom: 38px;
+  }
+
+  .skillset {
+    flex-direction: column;
+  }
+  
+
+  /* 화면이 작아지면  화면이 가득 채워지는 느낌 만들기
+  즉, grow 알아서 화면을 메꾸어줌*/
+  .project {
+    flex-grow: 1;
+  }
+
+  /* 화면이 작아지면 아바타 사이즈 줄이기 */
+  .testimonial__avatar {
+    width: 80px;
+    height: 80px;
+  }
 }
