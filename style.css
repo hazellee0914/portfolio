@@ -105,6 +105,8 @@ p {
   color: var(--color-white);
   padding: 16px;
   transition: all var(--animation-duration)ease-in-out;
+  /* 프로젝트 사진들이 넘어가서 설정 */
+  z-index: 1;
 }
 
 #navbar.navbar--dark {

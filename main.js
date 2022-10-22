@@ -23,4 +23,29 @@ document.addEventListener('scroll', () => {
     navbar.classList.remove('navbar--dark');
   }
 });
- 
+
+
+
+// Handle scrolling when tapping on the navbar menu
+
+// 쿼리셀렉터를 이용해서 navbar__menu 요소를 navbarMenu 할당한다.
+const navbarMenu = document.querySelector(`.navbar__menu`);
+// navbarMenu에 이벤트를 추가 -> 클릭이 되면 => 등록한 함수 호출
+navbarMenu.addEventListener('click', (event) => {
+  // console.log(event.target.dataset.link);
+  // 타겟이라는 변수를 할당하고
+  const target = event.target;
+  // 링크라는 타겟의 데이터 셋에 있는 링크
+  const link = target.dataset.link;
+  // 링크가 없다면 즉 널이거나 undefined 이면 아무것도 하지않고
+  // 널이 아닌 경우에만 출력
+  if(link == null) {
+    return;
+  }
+  console.log(event.target.dataset.link);
+  // 우리가 가려고 하는 scrollto는  쿼리 셀렉터를 이용해서 link 를 받아와서
+  //스크롤투에  scrollIntoView() 호출
+  const scrollTo = document.querySelector(link);
+  scrollTo.scrollIntoView({ behavior: 'smooth' });
+  console.log(scrollTo);
+});
