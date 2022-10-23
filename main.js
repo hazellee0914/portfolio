@@ -67,6 +67,29 @@ homeContactBtn.addEventListener('click', (event) => {
   scrollIntoView('#contact');
 });
 
+
+
+// Make home slowly fade to tranparent as the window scrolls down
+const home = document.querySelector('.home__container');
+const homeHeight = home.getBoundingClientRect().height;
+document.addEventListener('scroll', () => {
+  home.style.opacity = 1-window.scrollY/ homeHeight;
+
+  // homeHeight 이 800 이면,  스크롤잉이 0이고, 즉, 0 / 800 = 0, 1-0 = 1 ,  => 투명도 : 1
+  // 스크롤이 점점 되서 400이면, homeHeight 800 이니깐 즉, 400/800 = 0.5 , 1 - 0.5 = 0.5  => 반정도 투명해짐
+  // 스크롤이 800 이 되면, homeHeight 800 이니깐 죽 , 800 / 800 = 1, 1-1 = 0, => 완전 투명해짐
+  // 점점 커져서 1600 이면 , 1600 / 800 = 2, 1- 2 = -1 => 완전 불투명
+  // console.log(1-window.scrollY/ homeHeight);
+}); 
+
+
+
+
+
+
+
+
+
 // 가장 쉬운 메소드로 추출
 // selector 만 추가하면 이동할 수 있도록 만들거다
 // selector 를 주면 selector 에 맞는 요소를 찾아서 스무스하게 이동하는 함수 하나 만든것임
