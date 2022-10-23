@@ -491,6 +491,30 @@ p {
 }
 
 
+/* Arrow up Scroll button */
+.arrow-up {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 70px;
+  height: 70px;
+  font-size: 50px;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  border-radius: 50%;
+  opacity: 0;
+  /* 안 보일 때 클릭이 안되게 지정 */
+  pointer-events: none;  
+  transition: opacity 300ms ease-in;
+}
+
+/*  보이는 클래스가 있을 때만  */
+.arrow-up.visible {
+  opacity: 1;
+  /* 보일때는 클릭이 되면 홈으로 */
+  pointer-events: auto;
+}
+
 /*  반응형 
 For below 768 screen*/
 @media screen and (max-width: 768px) {

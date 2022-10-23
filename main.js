@@ -85,10 +85,23 @@ document.addEventListener('scroll', () => {
 
 
 
+// Show "arrow up" button when scrolling down
+const arrowUp = document.querySelector('.arrow-up');
+document.addEventListener('scroll', ()=> {
+  // home에서 반정도 올라가면 보이게 할거다
+ if(window.scrollY > homeHeight / 2) {
+  arrowUp.classList.add('visible');
+  // 스크롤이 위에 있는 경우라면 remove
+ } else {
+  arrowUp.classList.remove('visible');
+ }
+});
 
 
-
-
+// Handle click on the "arrow up" button
+arrowUp.addEventListener('click', () => {
+  scrollIntoView('#home');
+});
 
 // 가장 쉬운 메소드로 추출
 // selector 만 추가하면 이동할 수 있도록 만들거다
