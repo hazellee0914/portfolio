@@ -31,6 +31,7 @@ document.addEventListener('scroll', () => {
 // 쿼리셀렉터를 이용해서 navbar__menu 요소를 navbarMenu 할당한다.
 const navbarMenu = document.querySelector(`.navbar__menu`);
 // navbarMenu에 이벤트를 추가 -> 클릭이 되면 => 등록한 함수 호출
+// 보통은 클릭이 되면 클릭한 이벤트가 들어오게 된다.
 navbarMenu.addEventListener('click', (event) => {
   // console.log(event.target.dataset.link);
   // 타겟이라는 변수를 할당하고
@@ -42,10 +43,35 @@ navbarMenu.addEventListener('click', (event) => {
   if(link == null) {
     return;
   }
-  console.log(event.target.dataset.link);
+  // console.log(event.target.dataset.link);
   // 우리가 가려고 하는 scrollto는  쿼리 셀렉터를 이용해서 link 를 받아와서
   //스크롤투에  scrollIntoView() 호출
-  const scrollTo = document.querySelector(link);
-  scrollTo.scrollIntoView({ behavior: 'smooth' });
-  console.log(scrollTo);
+  
+  // 중복이 되어 삭제
+  // const scrollTo = document.querySelector(link);
+  // scrollTo.scrollIntoView({ behavior: 'smooth' });
+
+  // 간편하게
+  scrollIntoView(link);
+  // console.log(scrollTo);
 });
+
+
+
+
+// Handle click on "contact me" button on home
+const homeContactBtn = document.querySelector('.home__contact');
+homeContactBtn.addEventListener('click', (event) => {
+  // 호출만 하면 될 수 있도록
+  // selector 는 아이디에 컨택
+  scrollIntoView('#contact');
+});
+
+// 가장 쉬운 메소드로 추출
+// selector 만 추가하면 이동할 수 있도록 만들거다
+// selector 를 주면 selector 에 맞는 요소를 찾아서 스무스하게 이동하는 함수 하나 만든것임
+// 호출만 하면 될 수 있도록
+function scrollIntoView(selector){
+  const scrollTo = document.querySelector(selector);
+  scrollTo.scrollIntoView({ behavior: 'smooth' });
+}
