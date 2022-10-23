@@ -309,7 +309,7 @@ p {
 }
 
 /* Work */
-.work__cateories {
+.work__categories {
   margin: 40px;
 }
 
@@ -351,24 +351,39 @@ p {
   left: 4px;
   /* 평소에는 0으로해서 안보이게 한다는 의미 */
   opacity: 0;
-  transition: all var(--animation-duration)ease; 
+  transition: all var(--animation-duration)ease-in
 }
 
 .work__projects {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  /* 기본일 때는 */
+  opacity: 1;
+  transition: all var(--animation-duration)ease-out;
+}
+
+.work__projects.anim-out {
+  /* 나갈때 오퍼시티를 0 */
+  opacity: 0;
+  /*  작아지면서 밑으로 내려가도록 하기 */
+  transform: scale(0.96) translateY(40px);
 }
 
 .project {
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; 
+  align-items: center; 
   width: 280px;
   height: 250px;
   margin: 2px;
   background-color: var(--color-light-white);
+}
+
+/* 보여져야하는데 프로젝트 */
+.project.invisible {
+  display: none;
 }
 
 .project__img {

@@ -103,6 +103,62 @@ arrowUp.addEventListener('click', () => {
   scrollIntoView('#home');
 });
 
+
+// Projects (filter)
+const workBtnContainer = document.querySelector('.work__categories');
+const projectContainer = document.querySelector('.work__projects');
+const projects = document.querySelectorAll('.project');
+workBtnContainer.addEventListener('click', (e) => {
+  // dataset filter 가 없다면 => false 가 undefined 과 비슷
+  // 혹은 (||) e.target 에 있는 parentNode.dataset.filter 값에 있는 쓰겠다. (개발자 도구에서 디버깅해서 확인!)
+  const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
+
+  // filter 가 널이면 아무것도 해주지 않을 거고
+  if(filter == null) {
+    return;
+  }
+
+  // 버튼이 클릭이 되면 프로젝트 컨테이너 자체에 클래스 추가 -> anim-out 등록이 되면 붐 하고 나갈 수 있기 
+  projectContainer.classList.add('anim-out');
+
+  // 일정시간이 지나면  클래스 애니메이션 아웃을 없애주기 -> 0.3초가 지나면 -> 우리가 등록한 ->애니매에션 아웃 없애기
+  setTimeout(()=>{  // 브라우저야 0.3 초뒤에 실행해줘 전달만 해놓고 블록을 끝내는것을 의미!
+    // console.log(filter);
+  // project 안보이게 하기 -> 각각 하나당 번걸아서 (forEach) 하나씩 프로젝트를 받아온다
+  // forEach = for(let project of projects) = for(let i=0; i < projects.length; i++) {}
+  projects.forEach((project) => {
+    console.log(project.dataset.type);
+    // 프로젝트 마다 돌면서 
+    // 필터가 전부다 보여줘야되는 all(*)이거나 아니면 필터가 프로젝트에 있는 데이터셋 값이 타입이 같으면
+    // 프로젝트 클래스에 추가해 줄거다!! 
+    if (filter === '*' || filter === project.dataset.type) {
+      // 매칭이 되면 보여줘야되니깐 안보여주는 클래스를 빼고
+      project.classList.remove('invisible');
+      // 타입이 필터에 해당이 안되면 안보여져야 하니깐 안보여쟈되는 클래스를 등록해준다!!
+    } else {
+      project.classList.add('invisible');
+    } 
+  }); 
+    projectContainer.classList.remove('anim-out');
+  }, 300);
+});
+
+// console.log(`----------------------------`);
+  // for(let project of projects) {
+  //   console.log(project);
+
+  // }
+
+  // console.log(`----------------------------`);
+  // let project;
+  // for(let i = 0; i < projects.length; i++) {
+  //   project = projects[i];
+  //   console.log(project);
+
+  // }
+
+
+
 // 가장 쉬운 메소드로 추출
 // selector 만 추가하면 이동할 수 있도록 만들거다
 // selector 를 주면 selector 에 맞는 요소를 찾아서 스무스하게 이동하는 함수 하나 만든것임
