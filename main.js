@@ -118,6 +118,24 @@ workBtnContainer.addEventListener('click', (e) => {
     return;
   }
 
+
+
+  // Remove selection from the previous item and select the new one.
+  const active = document.querySelector('.category__btn.selected');
+  active.classList.remove('selected');
+  // 그냥 타겟에 셀렉을 하는게 아니라 
+  // span 에다가 셀렉이 되어 에러
+  // const 타겟에 e.target에 클릭된 노드네임이 버튼이면 e.target 을 쓰고
+  // 만약에 버튼이 아니며 (span 인 경우) e.targer에 있는 parentNode; 타겟을 지정
+  const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
+  target.classList.add('selected');
+
+
+
+
+
+
+
   // 버튼이 클릭이 되면 프로젝트 컨테이너 자체에 클래스 추가 -> anim-out 등록이 되면 붐 하고 나갈 수 있기 
   projectContainer.classList.add('anim-out');
 
