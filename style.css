@@ -123,6 +123,7 @@ p {
 
 }
 
+
 .navbar__menu__item {
   padding: 8px 12px;
   margin: 0 4px;
@@ -315,7 +316,7 @@ p {
 
 .category__btn {
   border: 1px solid var(--color-dark-white);
-  border-radius: 4px;
+  border-radius: var(--size-border-radius);
   font-size: var(--font-regular);
   padding: 8px 48px;
 }
@@ -351,7 +352,7 @@ p {
   left: 4px;
   /* 평소에는 0으로해서 안보이게 한다는 의미 */
   opacity: 0;
-  transition: all var(--animation-duration)ease-in
+  transition: all var(--animation-duration)ease-in;
 }
 
 .work__projects {
@@ -413,7 +414,7 @@ p {
 }
 
 .project__description h3 {
-  color: var(--color-white);
+  color: var(--color-orange);
 }
 
 .project__description h3:after{
@@ -422,9 +423,9 @@ p {
   display: block;
   position: relative;
   left: 50%;  
-  width: 25px;
+  width: 50px;
   height: 2px;
-  margin-left: -12px;
+  transform: translateX(-50%);
   margin-top: 8px;
   background-color: var(--color-dark-white);
 }
@@ -539,8 +540,12 @@ For below 768 screen*/
   #navbar {
     flex-direction: column;
     align-items: flex-start;
+    background-color: var(--color-pink);
   }
 
+  #navbar.navbar--dark {
+    padding: 16px;
+  }
   .navbar__menu {
     flex-direction: column;
     text-align: center;
@@ -548,6 +553,11 @@ For below 768 screen*/
     width: 100%;
     display: none;
   }
+
+  .navbar__menu.open {
+    display: block;
+  }
+
   .about__majors {
     flex-direction: column;
   }

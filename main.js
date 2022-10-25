@@ -26,6 +26,7 @@ document.addEventListener('scroll', () => {
 
 
 
+
 // Handle scrolling when tapping on the navbar menu
 
 // 쿼리셀렉터를 이용해서 navbar__menu 요소를 navbarMenu 할당한다.
@@ -43,6 +44,8 @@ navbarMenu.addEventListener('click', (event) => {
   if(link == null) {
     return;
   }
+
+  navbarMenu.classList.remove('open');
   // console.log(event.target.dataset.link);
   // 우리가 가려고 하는 scrollto는  쿼리 셀렉터를 이용해서 link 를 받아와서
   //스크롤투에  scrollIntoView() 호출
@@ -55,6 +58,16 @@ navbarMenu.addEventListener('click', (event) => {
   scrollIntoView(link);
   // console.log(scrollTo);
 });
+
+
+// Navbar toggle button for small screen
+const navbarToggleBtn = document.querySelector('.navbar__toggle-btn');
+navbarToggleBtn.addEventListener('click', () => {
+  navbarMenu.classList.toggle('open');
+});
+
+
+
 
 
 
