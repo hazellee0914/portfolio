@@ -180,10 +180,14 @@ p {
   color: var(--color-white);
 }
 
+.home__contact:hover {
+  background-color: var(--color-orange);
+}
+
 
 /* Section common */
 .section {
-  padding: 50px;
+  padding: 60px;
   text-align: center;
   margin: auto;
 }
@@ -319,6 +323,7 @@ p {
   border-radius: var(--size-border-radius);
   font-size: var(--font-regular);
   padding: 8px 48px;
+  position: relative;
 }
 
 .category__btn.selected,
@@ -347,9 +352,9 @@ p {
   /*숫자를 중간에 하려면  높이랑 똑같이 하면 됨*/
   line-height: 24px;
   /* 카테고리 포지션을 리레이티브 */
-  position: relative;
+  position: absolute;
   top: -20px;
-  left: 4px;
+  right: 16px;
   /* 평소에는 0으로해서 안보이게 한다는 의미 */
   opacity: 0;
   transition: all var(--animation-duration)ease-in;
@@ -534,8 +539,21 @@ p {
 /*  반응형 
 For below 768 screen*/
 @media screen and (max-width: 768px) {
+  :root {
+  /* Font size */
+  --font-large: 30px;
+  --font-medium: 18px;
+  --font-regular: 16px;
+  --font-small: 14px;
+  --font-micro: 12px;
+  }
+
+
   .navbar__toggle-btn {
     display: block;
+    top: 16px;
+    right: 16px;
+    font-size: medium;
   }
   #navbar {
     flex-direction: column;
@@ -558,12 +576,19 @@ For below 768 screen*/
     display: block;
   }
 
+  .section {
+    padding: 16px;
+    padding-top: 40px;
+  }
+
   .about__majors {
     flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 0px;
   }
   
   .major {
-    margin-bottom: 38px;
+    margin-bottom: 30px;
   }
 
   .skillset {
@@ -571,15 +596,50 @@ For below 768 screen*/
   }
   
 
+  .category__btn {
+    margin: 4px 0;
+    width: 100%;
+  }
+
   /* 화면이 작아지면  화면이 가득 채워지는 느낌 만들기
   즉, grow 알아서 화면을 메꾸어줌*/
   .project {
     flex-grow: 1;
   }
 
+  
+  .testimonial {
+    flex-direction: column;
+    align-items: center;
+  }
+  
   /* 화면이 작아지면 아바타 사이즈 줄이기 */
   .testimonial__avatar {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
+   
+  }
+
+/* 짝수일 때랑 홀수 일 때*/
+.testimonial__avatar:nth-child(even),
+.testimonial__avatar:nth-child(odd) {
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+/* 아바타 먼저 오게 하고 스피치버블이 뒤로 
+기본 order는 항상 0으로 설정 되어 있다.*/
+  .testimonial__speech-bubble {
+    order: 1;
+  }
+  
+  .arrow-up {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    line-height: 50px;
+    right: 16px;
+    bottom: 16px;
   }
 }
+
