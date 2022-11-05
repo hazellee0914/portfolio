@@ -1,7 +1,7 @@
 'use strict';
 
 
-// Make navbar tranparent when it is on the top
+// Make navbar tranparent when it is on  top
 
 // 변수 navbar 선언 => 쿼리 셀렉터를 이용해서 우리의 element 요소를 받아올건데 => navbar는 id로 되어있었음 
 const navbar = document.querySelector('#navbar');
@@ -57,6 +57,7 @@ navbarMenu.addEventListener('click', (event) => {
   // 간편하게
   scrollIntoView(link);
   // console.log(scrollTo);
+  selectNavItem(target);
 });
 
 
@@ -147,8 +148,6 @@ workBtnContainer.addEventListener('click', (e) => {
 
 
 
-
-
   // 버튼이 클릭이 되면 프로젝트 컨테이너 자체에 클래스 추가 -> anim-out 등록이 되면 붐 하고 나갈 수 있기 
   projectContainer.classList.add('anim-out');
 
@@ -190,6 +189,42 @@ workBtnContainer.addEventListener('click', (e) => {
 
 
 
+// 1. 모든 섹션 요소들과 메뉴 아이템들을 가지고 온다.
+// 2. IntersectionObserver 를 이용해서 모든 섹션들을 관찰한다.
+// 3. 보여지는 섹션에 해당하는 메뉴 아이템을 활성화 시킨다. 
+
+
+
+// 배열에 빙글빙글 돌면서 각각의 아이디를 섹션 돔요소로 변환하는 새로운 배열을 만드는 거 => map
+const sectionIds = [
+  '#home',
+  '#about',
+  '#skills',
+  '#work',
+  '#testimonials',
+  '#contact',
+];
+
+
+// 새로운 변수인 sections 만들어서 섹션아이디를 빙글빙글 돌면서 각각의 아이디 문자열을 해당하는 요소를 받아옴
+const sections = sectionIds.map(id => document.querySelector(id));
+const navItems = sectionIds.map(id => 
+  document.querySelector(`[data-link="${id}"]`)
+);
+console.log(sections);
+console.log(navItems);
+
+
+let selectedNavIndex = 0;
+let selectedNavItem = navItems[0];
+function selectNavItem(selected) {
+  selectedNavItem.classList.remove('active');     // 액티브를 먼저 지우고
+  selectedNavItem = selected;      // 할당해주고
+  selectedNavItem.classList.add('active');        // 액티브 다시해주기
+}
+
+
+
 // 가장 쉬운 메소드로 추출
 // selector 만 추가하면 이동할 수 있도록 만들거다
 // selector 를 주면 selector 에 맞는 요소를 찾아서 스무스하게 이동하는 함수 하나 만든것임
@@ -197,4 +232,52 @@ workBtnContainer.addEventListener('click', (e) => {
 function scrollIntoView(selector){
   const scrollTo = document.querySelector(selector);
   scrollTo.scrollIntoView({ behavior: 'smooth' });
+  selectNavItem(navItems[sectionId.indexOf(selector)]);
 }
+
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.3,
+};
+
+
+const observerCallback = (entries, observer) => {
+  entries.forEach(entry => {
+    // console.log(entry.target);
+    // 진입하지 않을 때 (즉, 빠져나갈 때) -> entry가 빠져나갈 때 타겟은 빠져나가는 섹션  && intersectionRatio가 무조건 0 이상 처리
+    if (!entry.isIntersecting && entry.intersectionRatio > 0) {
+      // console.log(entry);
+      const index = sectionIds.indexOf(`#${entry.target.id}`);
+      // console.log(index, entry.target.id);
+      // 엔트리에 바운딩크라이언트렉에 y좌표가 마이너스라면 => 스크롤링이 아래로 되어서 페지가 올라옴
+      if(entry.boundingClientRect.y < 0) {
+        // 페이지가 올라오는 경우라면 하나 증가하는 바로 그 다음 것이 
+        selectedNavIndex = index + 1;
+      } else {
+         // 내려가는 경우라면 y가 플러스인 경우에는
+        selectedNavIndex = index - 1;
+      }
+    }
+  });
+};
+
+const observer = new IntersectionObserver(observerCallback, observerOptions);
+sections.forEach(section => observer.observe(section));
+
+
+window.addEventListener('wheel', () => {
+  // 만약에 스크롤된 포지션 y가 0이라면 (즉, 제일 위에 있다면)
+  if(window.scrollY === 0) {
+    selectedNavIndex = 0;    // 0으로 설정!
+    // scrollY + innerHeight  body.clientHeight 가 동일 하다면 (즉, 제일 밑으로 도달했다면)
+  } else if (
+    Math.round (window.scrollY + window.innerHeight) >=
+    document.body.clientHeight
+  ) {
+    // selectedNavIndex 를 navItems에 배열에 있는 제일 마지막 인덱스를 가르키면 된다.
+    selectedNavIndex = navItems.length- 1;
+  }
+  selectNavItem(navItems[selectedNavIndex]);
+});
+
